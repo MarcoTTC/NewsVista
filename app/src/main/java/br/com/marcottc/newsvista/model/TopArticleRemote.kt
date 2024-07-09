@@ -6,8 +6,18 @@ data class TopArticleRemote(
     val title: String,
     val abstract: String,
     val url: String,
+    val uri: String,
     val byline: String,
     val itemType: String,
     val updatedDate: String,
-    val createdDate: String
+    val createdDate: String,
+    val publishedDate: String,
+    val materialTypeFacet: String,
+    val kicker: String,
+    val desFacet: List<String>,
+    val orgFacet: List<String>,
+    val perFacet: List<String>,
+    val geoFacet: List<String>,
+    val multimediaList: List<MultimediaRemote>,
+    val shortUrl: String
 )
