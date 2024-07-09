@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 // Typography based on Fortnightly style, using Merriweather and LibreFranklin fonts
-val Typography = Typography(
+val NewsVistaTypography = Typography(
         displayLarge = TextStyle(
                 fontFamily = Merriweather,
                 fontWeight = FontWeight.Black,
