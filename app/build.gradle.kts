@@ -48,19 +48,33 @@ android {
 
 dependencies {
 
+    // Android Jetpack
+    // Core
     implementation(libs.androidx.core.ktx)
+    // Lifecycle
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    // Compose
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    // UI
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+    // Material 3
     implementation(libs.androidx.material3)
+
+    // Coil
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+
+    // Unit tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // Debug libs
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
