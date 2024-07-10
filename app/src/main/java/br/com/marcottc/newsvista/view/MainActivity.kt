@@ -32,7 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.com.marcottc.newsvista.R
-import br.com.marcottc.newsvista.model.TopArticleRemote
+import br.com.marcottc.newsvista.model.remote.TopArticleRemote
 import br.com.marcottc.newsvista.model.mock.MockGenerator
 import br.com.marcottc.newsvista.ui.theme.NewsVistaTheme
 import br.com.marcottc.newsvista.ui.theme.lightGrey

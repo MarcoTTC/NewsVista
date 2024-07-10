@@ -1,7 +1,7 @@
 package br.com.marcottc.newsvista.model.mock
 
-import br.com.marcottc.newsvista.model.MultimediaRemote
-import br.com.marcottc.newsvista.model.TopArticleRemote
+import br.com.marcottc.newsvista.model.remote.MultimediaRemote
+import br.com.marcottc.newsvista.model.remote.TopArticleRemote
 
 class MockGenerator {
 

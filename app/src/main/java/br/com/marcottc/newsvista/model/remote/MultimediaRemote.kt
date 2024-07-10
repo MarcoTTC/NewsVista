@@ -1,4 +1,4 @@
-package br.com.marcottc.newsvista.model
+package br.com.marcottc.newsvista.model.remote
 
 data class MultimediaRemote(
     val url: String,

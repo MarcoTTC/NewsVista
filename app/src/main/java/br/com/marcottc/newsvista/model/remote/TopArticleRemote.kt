@@ -1,4 +1,4 @@
-package br.com.marcottc.newsvista.model
+package br.com.marcottc.newsvista.model.remote
 
 data class TopArticleRemote(
     val section: String,
