@@ -6,6 +6,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import br.com.marcottc.newsvista.R
 
+// Merriweather font family is used for article abstract and main text
 val Merriweather = FontFamily(
     Font(R.font.merriweather_light, FontWeight.Light),
     Font(R.font.merriweather_light_italic, FontWeight.Light, FontStyle.Italic),
@@ -17,6 +18,7 @@ val Merriweather = FontFamily(
     Font(R.font.merriweather_black_italic, FontWeight.Black, FontStyle.Italic)
 )
 
+// Libre Franklin font family is used for article header, titles, section and details
 val LibreFranklin = FontFamily(
     Font(R.font.librefranklin_thin, FontWeight.Thin),
     Font(R.font.librefranklin_thin_italic, FontWeight.Thin, FontStyle.Italic),
