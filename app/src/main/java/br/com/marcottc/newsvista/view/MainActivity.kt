@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,15 +37,20 @@ import br.com.marcottc.newsvista.model.mock.MockGenerator
 import br.com.marcottc.newsvista.ui.theme.NewsVistaTheme
 import br.com.marcottc.newsvista.ui.theme.lightGrey
 import br.com.marcottc.newsvista.ui.theme.nearBlack
+import br.com.marcottc.newsvista.viewmodel.NewsVistaViewModel
 import coil.compose.AsyncImage
 
 class MainActivity : ComponentActivity() {
+
+    private val viewmodel by viewModels<NewsVistaViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
             NewsVistaTheme {
-                MainActivityScreen()
+                MainActivityScreen(articleList = viewmodel.currentArticleList.value ?: emptyList())
             }
         }
     }
@@ -141,9 +147,9 @@ class MainActivity : ComponentActivity() {
     @Preview(showBackground = true)
     @Composable
     fun NewsArticleCardPreview() {
-        val articleList = MockGenerator.generateTopArticleData()
+        val mockArticle = MockGenerator.generateTopArticleData()[0]
         NewsVistaTheme {
-            NewsArticleCard(article = articleList[0])
+            NewsArticleCard(article = mockArticle)
         }
     }
 
@@ -200,7 +206,10 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun MainActivityScreen(modifier: Modifier = Modifier) {
+    fun MainActivityScreen(
+        modifier: Modifier = Modifier,
+        articleList: List<TopArticleRemote>
+    ) {
         val orientation = LocalConfiguration.current.orientation
         Scaffold(
             modifier = modifier,
@@ -212,14 +221,13 @@ class MainActivity : ComponentActivity() {
                 Configuration.ORIENTATION_PORTRAIT -> {
                     NewsPortraitLayout(
                         modifier = Modifier.padding(paddingValues),
-                        articleList = MockGenerator.generateTopArticleData()
+                        articleList = articleList
                     )
                 }
-
                 else -> {
                     NewsLandscapeLayout(
                         modifier = Modifier.padding(paddingValues),
-                        articleList = MockGenerator.generateTopArticleData()
+                        articleList = articleList
                     )
                 }
             }
@@ -229,8 +237,10 @@ class MainActivity : ComponentActivity() {
     @Preview(showBackground = true)
     @Composable
     fun MainActivityScreenPreview() {
+        val articleList = MockGenerator.generateTopArticleData()
+
         NewsVistaTheme {
-            MainActivityScreen()
+            MainActivityScreen(articleList = articleList)
         }
     }
 }
