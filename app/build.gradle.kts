@@ -68,6 +68,9 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.compose)
 
+    // OkHttp
+    implementation(libs.okhttp)
+
     // Unit tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
