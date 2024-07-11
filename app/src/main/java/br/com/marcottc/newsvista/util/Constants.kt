@@ -5,5 +5,10 @@ package br.com.marcottc.newsvista.util
 // retrieve the app id for your app, and add it in this val
 const val nyTimesAppId: String = ""
 
-// Base url for the NY Times Dev API
-const val BASE_URL: String = ""
+// Values for the NY Times Dev API
+const val nyBaseUrl: String = "api.nytimes.com"
+const val nyServicePath: String = "svc"
+const val nyTopStories: String = "topstories"
+const val nyServiceVersion: String = "v2"
+const val nySectionHome: String = "home.json"
+const val nyQueryParamApiKey: String = "api-key"

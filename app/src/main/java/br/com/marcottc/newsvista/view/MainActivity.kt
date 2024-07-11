@@ -2,6 +2,7 @@ package br.com.marcottc.newsvista.view
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -33,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
 import br.com.marcottc.newsvista.R
 import br.com.marcottc.newsvista.model.remote.TopArticleRemote
 import br.com.marcottc.newsvista.model.mock.MockGenerator
@@ -41,6 +43,8 @@ import br.com.marcottc.newsvista.ui.theme.lightGrey
 import br.com.marcottc.newsvista.ui.theme.nearBlack
 import br.com.marcottc.newsvista.viewmodel.NewsVistaViewModel
 import coil.compose.AsyncImage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -65,7 +69,12 @@ class MainActivity : ComponentActivity() {
                 Text(text = "NewsVista")
             },
             navigationIcon = {
-                IconButton(onClick = {}) {
+                IconButton(onClick = {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val response = viewmodel.fetchTopArticles()
+                        Log.i("MainActivity", "response: $response")
+                    }
+                }) {
                     Icon(
                         imageVector = Icons.Filled.Menu,
                         contentDescription = "Navigation Menu"
