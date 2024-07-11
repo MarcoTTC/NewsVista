@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.marcottc.newsvista.model.remote.TopArticleRemote
 import br.com.marcottc.newsvista.model.mock.MockGenerator
+import br.com.marcottc.newsvista.model.remote.NewsRetrievalRemote
 import br.com.marcottc.newsvista.network.nytimes.NyTimesNewsRetriever
 import kotlinx.coroutines.launch
 
@@ -15,7 +16,7 @@ class NewsVistaViewModel: ViewModel() {
     val currentArticleList: LiveData<List<TopArticleRemote>>
         get() = _currentArticleList
 
-    suspend fun fetchTopArticles(): String {
+    suspend fun fetchTopArticles(): NewsRetrievalRemote? {
         return NyTimesNewsRetriever.getTopStoriesSectionHomeList()
     }
 }

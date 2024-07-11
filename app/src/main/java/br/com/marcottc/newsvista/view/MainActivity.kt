@@ -72,7 +72,7 @@ class MainActivity : ComponentActivity() {
                 IconButton(onClick = {
                     lifecycleScope.launch(Dispatchers.IO) {
                         val response = viewmodel.fetchTopArticles()
-                        Log.i("MainActivity", "response: $response")
+                        Log.i("MainActivity", "response: ${response.toString()}")
                     }
                 }) {
                     Icon(

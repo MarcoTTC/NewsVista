@@ -71,6 +71,9 @@ dependencies {
     // OkHttp
     implementation(libs.okhttp)
 
+    // Gson
+    implementation(libs.gson)
+
     // Unit tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
