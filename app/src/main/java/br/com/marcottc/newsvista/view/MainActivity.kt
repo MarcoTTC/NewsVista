@@ -2,7 +2,6 @@ package br.com.marcottc.newsvista.view
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -28,6 +27,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -53,10 +54,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewmodel.fetchTopArticles()
+        }
+
         enableEdgeToEdge()
         setContent {
+            val articleList: List<TopArticleRemote> by viewmodel.currentArticleList
+                .observeAsState(initial = emptyList())
+
             NewsVistaTheme {
-                MainActivityScreen(articleList = viewmodel.currentArticleList.value ?: emptyList())
+                MainActivityScreen(articleList = articleList)
             }
         }
     }
@@ -71,8 +79,7 @@ class MainActivity : ComponentActivity() {
             navigationIcon = {
                 IconButton(onClick = {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val response = viewmodel.fetchTopArticles()
-                        Log.i("MainActivity", "response: ${response.toString()}")
+                        viewmodel.fetchTopArticles()
                     }
                 }) {
                     Icon(
@@ -190,6 +197,7 @@ class MainActivity : ComponentActivity() {
         modifier: Modifier = Modifier,
         articleList: List<TopArticleRemote>
     ) {
+
         LazyColumn(
             modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(8.dp)

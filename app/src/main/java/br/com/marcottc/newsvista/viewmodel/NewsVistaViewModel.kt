@@ -12,11 +12,11 @@ import kotlinx.coroutines.launch
 
 class NewsVistaViewModel: ViewModel() {
 
-    private val _currentArticleList: MutableLiveData<List<TopArticleRemote>> = MutableLiveData(MockGenerator.generateTopArticleData())
+    private val _currentArticleList: MutableLiveData<List<TopArticleRemote>> = MutableLiveData()
     val currentArticleList: LiveData<List<TopArticleRemote>>
         get() = _currentArticleList
 
-    suspend fun fetchTopArticles(): NewsRetrievalRemote? {
-        return NyTimesNewsRetriever.getTopStoriesSectionHomeList()
+    suspend fun fetchTopArticles() {
+        _currentArticleList.postValue(NyTimesNewsRetriever.getTopStoriesSectionHomeList()?.resultList)
     }
 }

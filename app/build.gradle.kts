@@ -56,6 +56,8 @@ dependencies {
     // Compose
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    // Runtime
+    implementation(libs.androidx.runtime)
     // UI
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.text.google.fonts)
