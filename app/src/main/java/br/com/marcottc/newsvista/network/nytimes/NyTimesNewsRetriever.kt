@@ -18,27 +18,27 @@ class NyTimesNewsRetriever {
     companion object {
 
         fun getTopStoriesSectionHomeList(): NewsRetrievalRemote? {
-            val httpUrlBuilder = baseUrlBuilder()
+            val httpUrl = baseUrlBuilder()
                 .addPathSegment(nyTopStories)
                 .addPathSegment(nyServiceVersion)
                 .addPathSegment(nySectionHome)
                 .addQueryParameter(nyQueryParamApiKey, nyTimesAppId)
+                .build()
 
-            val responseBody = genericHttpGetRequest(httpUrlBuilder) ?: return null
+            val responseBody = genericHttpGetRequest(httpUrl) ?: return null
 
             val gson = Gson()
             val newsRetrieval = gson.fromJson(responseBody, NewsRetrievalRemote::class.java)
             return newsRetrieval
         }
 
-        private fun genericHttpGetRequest(httpUrlBuilder: HttpUrl.Builder): String? {
-            val client = OkHttpClient()
-
+        private fun genericHttpGetRequest(httpUrl: HttpUrl): String? {
             val request = Request.Builder()
-                .url(httpUrlBuilder.build())
+                .url(httpUrl)
                 .method("GET", null)
                 .build()
 
+            val client = OkHttpClient.Builder().build()
             val response = client.newCall(request).execute()
             return response.body?.string()
         }
