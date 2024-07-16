@@ -1,11 +1,23 @@
 package br.com.marcottc.newsvista.model.mock
 
 import br.com.marcottc.newsvista.model.remote.MultimediaRemote
+import br.com.marcottc.newsvista.model.remote.NewsRetrievalRemote
 import br.com.marcottc.newsvista.model.remote.TopArticleRemote
 
 class MockGenerator {
 
     companion object {
+
+        fun generateNewsRetrievalData(): NewsRetrievalRemote {
+            return NewsRetrievalRemote(
+                status = "OK",
+                copyright = "Copyright (c) 2024 The New York Times Company. All Rights Reserved.",
+                section = "home",
+                lastUpdated = "2024-07-16T14:57:08-04:00",
+                numResults = 3,
+                resultList = generateTopArticleData()
+            )
+        }
 
         fun generateTopArticleData(): List<TopArticleRemote> {
             return listOf(

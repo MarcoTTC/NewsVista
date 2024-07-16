@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -60,11 +61,11 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            val articleList: List<TopArticleRemote> by viewmodel.currentArticleList
-                .collectAsState(initial = emptyList())
+            val newsRetrievalState: NewsRetrievalState by viewmodel.currentNewsRetrievalState
+                .collectAsState(initial = NewsRetrievalState())
 
             NewsVistaTheme {
-                MainActivityScreen(articleList = articleList)
+                MainActivityScreen(newsRetrievalState = newsRetrievalState)
             }
         }
     }
@@ -110,7 +111,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun NewsArticleCard(
         modifier: Modifier = Modifier,
-        article: TopArticleRemote
+        newsArticle: TopArticleRemote
     ) {
         Card(
             modifier = modifier
@@ -128,33 +129,33 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(6f / 4f),
-                    model = article.multimediaList[1].url,
+                    model = newsArticle.multimediaList[1].url,
                     contentDescription = null,
                     placeholder = painterResource(R.drawable.placeholder_image)
                 )
                 Text(
-                    text = article.section,
+                    text = newsArticle.section,
                     style = MaterialTheme
                         .typography
                         .labelLarge,
                     color = nearBlack
                 )
                 Text(
-                    text = article.title,
+                    text = newsArticle.title,
                     style = MaterialTheme
                         .typography
                         .titleMedium,
                     color = nearBlack
                 )
                 Text(
-                    text = article.abstract,
+                    text = newsArticle.abstract,
                     style = MaterialTheme
                         .typography
                         .bodyLarge,
                     color = lightGrey
                 )
                 Text(
-                    text = article.byline,
+                    text = newsArticle.byline,
                     style = MaterialTheme
                         .typography
                         .labelSmall,
@@ -169,7 +170,7 @@ class MainActivity : ComponentActivity() {
     fun NewsArticleCardPreview() {
         val mockArticle = MockGenerator.generateTopArticleData()[0]
         NewsVistaTheme {
-            NewsArticleCard(article = mockArticle)
+            NewsArticleCard(newsArticle = mockArticle)
         }
     }
 
@@ -187,7 +188,7 @@ class MainActivity : ComponentActivity() {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(articleList.size) { index ->
-                NewsArticleCard(article = articleList[index])
+                NewsArticleCard(newsArticle = articleList[index])
             }
         }
     }
@@ -203,7 +204,7 @@ class MainActivity : ComponentActivity() {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(articleList.size) { index ->
-                NewsArticleCard(article = articleList[index])
+                NewsArticleCard(newsArticle = articleList[index])
             }
         }
     }
@@ -211,7 +212,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun MainActivityScreen(
         modifier: Modifier = Modifier,
-        articleList: List<TopArticleRemote>
+        newsRetrievalState: NewsRetrievalState
     ) {
         val orientation = LocalConfiguration.current.orientation
         Scaffold(
@@ -222,28 +223,51 @@ class MainActivity : ComponentActivity() {
         ) { paddingValues ->
             when (orientation) {
                 Configuration.ORIENTATION_PORTRAIT -> {
-                    NewsPortraitLayout(
-                        modifier = Modifier.padding(paddingValues),
-                        articleList = articleList
-                    )
+                    when (newsRetrievalState.getState()) {
+                        NewsRetrievalState.State.LOADING -> {
+                            CircularProgressIndicator()
+                        }
+                        NewsRetrievalState.State.SUCCESS -> {
+                            NewsPortraitLayout(
+                                modifier = Modifier.padding(paddingValues),
+                                articleList = newsRetrievalState.getNewsRetrieval()!!.resultList
+                            )
+                        }
+                        NewsRetrievalState.State.ERROR -> {
+                            Text(text = newsRetrievalState.getErrorMessage()!!)
+                        }
+                    }
                 }
                 else -> {
-                    NewsLandscapeLayout(
-                        modifier = Modifier.padding(paddingValues),
-                        articleList = articleList
-                    )
+                    when (newsRetrievalState.getState()) {
+                        NewsRetrievalState.State.LOADING -> {
+                            CircularProgressIndicator()
+                        }
+                        NewsRetrievalState.State.SUCCESS -> {
+                            NewsLandscapeLayout(
+                                modifier = Modifier.padding(paddingValues),
+                                articleList = newsRetrievalState.getNewsRetrieval()!!.resultList
+                            )
+                        }
+                        NewsRetrievalState.State.ERROR -> {
+                            Text(text = newsRetrievalState.getErrorMessage()!!)
+                        }
+                    }
                 }
             }
         }
     }
 
-    @PreviewScreenSizes()
+    @PreviewScreenSizes
     @Composable
     fun ScreenPreview() {
-        val articleList = MockGenerator.generateTopArticleData()
+        val newsRetrieval = MockGenerator.generateNewsRetrievalData()
 
         NewsVistaTheme {
-            MainActivityScreen(articleList = articleList)
+            MainActivityScreen(newsRetrievalState = NewsRetrievalState(
+                state = NewsRetrievalState.State.SUCCESS,
+                newsRetrieval = newsRetrieval
+            ))
         }
     }
 }
