@@ -129,9 +129,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(6f / 4f),
-                    model = newsArticle.multimediaList[1].url,
+                    model =
+                    if (newsArticle.multimediaList.isNullOrEmpty()) {
+                        null
+                    } else {
+                        newsArticle.multimediaList[1].url
+                    },
                     contentDescription = null,
-                    placeholder = painterResource(R.drawable.placeholder_image)
+                    placeholder = painterResource(R.drawable.placeholder_image),
+                    error = painterResource(R.drawable.placeholder_image),
+                    fallback = painterResource(R.drawable.placeholder_image)
                 )
                 Text(
                     text = newsArticle.section,

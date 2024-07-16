@@ -30,7 +30,7 @@ data class TopArticleRemote(
     @SerializedName("geo_facet")
     val geoFacet: List<String>,
     @SerializedName("multimedia")
-    val multimediaList: List<MultimediaRemote>,
+    val multimediaList: List<MultimediaRemote>?,
     @SerializedName("short_url")
     val shortUrl: String
 )
