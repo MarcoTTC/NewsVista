@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.marcottc.newsvista.model.remote.TopArticleRemote
-import br.com.marcottc.newsvista.network.nytimes.NyTimesNewsRetriever
+import br.com.marcottc.newsvista.network.service.NyTimesNewsRetriever
 
 class NewsVistaViewModel: ViewModel() {
 
