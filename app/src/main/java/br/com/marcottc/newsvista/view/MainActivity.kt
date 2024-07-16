@@ -27,8 +27,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val articleList: List<TopArticleRemote> by viewmodel.currentArticleList
-                .observeAsState(initial = emptyList())
+                .collectAsState(initial = emptyList())
 
             NewsVistaTheme {
                 MainActivityScreen(articleList = articleList)
