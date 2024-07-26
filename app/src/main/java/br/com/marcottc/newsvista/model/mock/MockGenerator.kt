@@ -15,11 +15,11 @@ class MockGenerator {
                 section = "home",
                 lastUpdated = "2024-07-16T14:57:08-04:00",
                 numResults = 3,
-                resultList = generateTopArticleData()
+                resultList = generateTopArticleDataList()
             )
         }
 
-        fun generateTopArticleData(): List<TopArticleRemote> {
+        fun generateTopArticleDataList(): List<TopArticleRemote> {
             return listOf(
                 TopArticleRemote(
                     section = "world",
@@ -213,5 +213,73 @@ class MockGenerator {
                 )
             )
         }
+
+        fun generateTopArticleData() = TopArticleRemote(
+            section = "world",
+            subsection = "europe",
+            title = "At Ukraine’s Largest Children’s Hospital, a Horrific Scene of Destruction",
+            abstract = "Families and patients were not unfamiliar with the sound of missiles flying overhead. But the Russian assault on the hospital marked one of the worst days of violence against civilians in months.",
+            url = "https://www.nytimes.com/2024/07/09/world/europe/ukraine-childrens-hospial-russia.html",
+            uri = "nyt://article/d6bebda3-3565-5f3f-a78e-ae4f902d73e5",
+            byline = "By Marc Santora, Megan Specia and Brendan Hoffman",
+            itemType = "Article",
+            updatedDate = "2024-07-09T14:56:04-04:00",
+            createdDate = "2024-07-09T14:38:39-04:00",
+            publishedDate = "2024-07-09T14:38:39-04:00",
+            materialTypeFacet = "",
+            kicker = "",
+            desFacet = listOf(
+                "Civilian Casualties",
+                "Deaths (Fatalities)",
+                "Missiles and Missile Defense Systems",
+                "Hospitals",
+                "Russian Invasion of Ukraine (2022)",
+                "Defense and Military Forces",
+                "Children and Childhood",
+                "Bombs and Explosives",
+                "Cancer",
+                "International Relations"
+            ),
+            orgFacet = emptyList(),
+            perFacet = listOf(
+                "Biden, Joseph R Jr"
+            ),
+            geoFacet = listOf(
+                "Kyiv (Ukraine)"
+            ),
+            multimediaList = listOf(
+                MultimediaRemote(
+                    url = "https://static01.nyt.com/images/2024/07/09/multimedia/09ukraine-children-01-hpvl-promo/09ukraine-children-01-hpvl-superJumbo.jpg",
+                    format = "Super Jumbo",
+                    height = 1366,
+                    width = 2048,
+                    type = "image",
+                    subtype = "photo",
+                    caption = "",
+                    copyright = "Brendan Hoffman for The New York Times"
+                ),
+                MultimediaRemote(
+                    url = "https://static01.nyt.com/images/2024/07/09/multimedia/09ukraine-children-01-hpvl-promo/09ukraine-children-01-hpvl-threeByTwoSmallAt2X.jpg",
+                    format = "threeByTwoSmallAt2X",
+                    height = 400,
+                    width = 600,
+                    type = "image",
+                    subtype = "photo",
+                    caption = "",
+                    copyright = "Brendan Hoffman for The New York Times"
+                ),
+                MultimediaRemote(
+                    url = "https://static01.nyt.com/images/2024/07/09/multimedia/09ukraine-children-01-hpvl-promo/09ukraine-children-01-hpvl-thumbLarge.jpg",
+                    format = "Large Thumbnail",
+                    height = 150,
+                    width = 150,
+                    type = "image",
+                    subtype = "photo",
+                    caption = "",
+                    copyright = "Brendan Hoffman for The New York Times"
+                )
+            ),
+            shortUrl = ""
+        )
     }
 }
