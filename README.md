@@ -7,4 +7,6 @@ The app itself is a simple news presentation app, retrieving news from the New Y
 
 For the visual fidelity to Fortnightly, I'm using Adi Chakravarty Figma layout: https://www.figma.com/community/file/1125542410508509052
 
+To adapt the Material 2 format into Material 3, I'm using the official migration guide from Android Developers: https://developer.android.com/develop/ui/compose/designsystems/material2-material3
+
 It is currently licensed under MIT license, so feel free to use it as you please.
