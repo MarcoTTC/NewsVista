@@ -9,17 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -28,52 +21,75 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import br.com.marcottc.newsvista.R
 import br.com.marcottc.newsvista.model.mock.MockGenerator
 import br.com.marcottc.newsvista.model.remote.TopArticleRemote
+import br.com.marcottc.newsvista.ui.theme.LibreFranklin
 import br.com.marcottc.newsvista.ui.theme.NewsVistaTheme
 import br.com.marcottc.newsvista.ui.theme.lightGrey
 import br.com.marcottc.newsvista.ui.theme.nearBlack
 import coil.compose.AsyncImage
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewsVistaAppBar(
+fun NewsArticleHeadlineSmallPortraitLayout(
     modifier: Modifier = Modifier,
-    menuButtonOnClick: () -> Unit = {},
-    searchButtonOnClick: () -> Unit = {}
+    newsArticle: TopArticleRemote
 ) {
-    TopAppBar(
+    Column(
         modifier = modifier,
-        title = {
-            Text(text = "NewsVista")
-        },
-        navigationIcon = {
-            IconButton(onClick = menuButtonOnClick) {
-                Icon(
-                    imageVector = Icons.Filled.Menu,
-                    contentDescription = "Navigation Menu"
-                )
-            }
-        },
-        actions = {
-            IconButton(onClick = searchButtonOnClick) {
-                Icon(
-                    imageVector = Icons.Filled.Search,
-                    contentDescription = "Search News"
-                )
-            }
-        }
-    )
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        AsyncImage(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(6f / 4f),
+            model =
+            if (newsArticle.multimediaList.isNullOrEmpty()) {
+                null
+            } else {
+                newsArticle.multimediaList[1].url
+            },
+            contentDescription = null,
+            placeholder = painterResource(R.drawable.medium_placeholder_image),
+            error = painterResource(R.drawable.medium_placeholder_image),
+            fallback = painterResource(R.drawable.medium_placeholder_image)
+        )
+        Text(
+            text = newsArticle.section,
+            style = MaterialTheme
+                .typography
+                .labelSmall,
+            color = nearBlack
+        )
+        Text(
+            text = newsArticle.title,
+            style = TextStyle(
+                fontFamily = LibreFranklin,
+                fontWeight = FontWeight.Medium,
+                fontSize = 20.sp,
+                letterSpacing = 0.15.sp,
+                lineHeight = 27.sp
+            ),
+            color = nearBlack
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun NewsVistaAppBarPreview() {
+fun NewsArticleHeadlineSmallPortraitLayoutPreview() {
+    val mockArticle = MockGenerator.generateTopArticleData()
     NewsVistaTheme {
-        NewsVistaAppBar()
+        NewsArticleHeadlineSmallPortraitLayout(
+            modifier = Modifier.padding(all = 8.dp),
+            newsArticle = mockArticle
+        )
     }
 }
 
@@ -105,7 +121,7 @@ fun DottedDivisorPreview() {
 }
 
 @Composable
-fun NewsArticleSmallItemSmallLayout(
+fun NewsArticleItemSmallPortraitLayout(
     modifier: Modifier = Modifier,
     newsArticle: TopArticleRemote
 ) {
@@ -126,7 +142,7 @@ fun NewsArticleSmallItemSmallLayout(
                 text = newsArticle.section,
                 style = MaterialTheme
                     .typography
-                    .labelLarge,
+                    .labelSmall,
                 color = nearBlack
             )
             Text(
@@ -159,10 +175,10 @@ fun NewsArticleSmallItemSmallLayout(
 
 @Preview(showBackground = true)
 @Composable
-fun NewsArticleSmallItemSmallLayoutPreview() {
+fun NewsArticleItemSmallPortraitLayoutPreview() {
     val mockArticle = MockGenerator.generateTopArticleData()
     NewsVistaTheme {
-        NewsArticleSmallItemSmallLayout(
+        NewsArticleItemSmallPortraitLayout(
             modifier = Modifier.padding(all = 8.dp),
             newsArticle = mockArticle
         )
@@ -170,52 +186,73 @@ fun NewsArticleSmallItemSmallLayoutPreview() {
 }
 
 @Composable
-fun NewsArticleHeadlineItemSmallLayout(
+fun NewsArticleItemSmallLandscapeLayout(
     modifier: Modifier = Modifier,
     newsArticle: TopArticleRemote
 ) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+    Row(
+        modifier = modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
+        Column(
+            modifier = Modifier
+                .weight(1f),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                text = newsArticle.section,
+                style = MaterialTheme
+                    .typography
+                    .labelSmall,
+                color = nearBlack
+            )
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                text = newsArticle.title,
+                style = MaterialTheme
+                    .typography
+                    .titleMedium,
+                color = nearBlack
+            )
+            Text(
+                text = newsArticle.abstract,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme
+                    .typography
+                    .titleSmall,
+                color = lightGrey
+            )
+        }
         AsyncImage(
             modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(6f / 4f),
+                .align(Alignment.Top),
             model =
             if (newsArticle.multimediaList.isNullOrEmpty()) {
                 null
             } else {
-                newsArticle.multimediaList[1].url
+                newsArticle.multimediaList[2].url
             },
             contentDescription = null,
-            placeholder = painterResource(R.drawable.medium_placeholder_image),
-            error = painterResource(R.drawable.medium_placeholder_image),
-            fallback = painterResource(R.drawable.medium_placeholder_image)
-        )
-        Text(
-            text = newsArticle.section,
-            style = MaterialTheme
-                .typography
-                .labelLarge,
-            color = nearBlack
-        )
-        Text(
-            text = newsArticle.title,
-            style = MaterialTheme
-                .typography
-                .titleMedium,
-            color = nearBlack
+            placeholder = painterResource(R.drawable.small_placeholder_image),
+            error = painterResource(R.drawable.small_placeholder_image),
+            fallback = painterResource(R.drawable.small_placeholder_image)
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun NewsArticleHeadlineItemSmallLayoutPreview() {
+fun NewsArticleItemSmallLandscapeLayoutPreview() {
     val mockArticle = MockGenerator.generateTopArticleData()
     NewsVistaTheme {
-        NewsArticleHeadlineItemSmallLayout(
+        NewsArticleItemSmallLandscapeLayout(
             modifier = Modifier.padding(all = 8.dp),
             newsArticle = mockArticle
         )

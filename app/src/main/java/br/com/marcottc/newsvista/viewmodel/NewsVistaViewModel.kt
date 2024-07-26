@@ -2,7 +2,7 @@ package br.com.marcottc.newsvista.viewmodel
 
 import androidx.lifecycle.ViewModel
 import br.com.marcottc.newsvista.network.service.NyTimesNewsRetriever
-import br.com.marcottc.newsvista.view.NewsRetrievalState
+import br.com.marcottc.newsvista.view.state.NewsRetrievalState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -27,10 +27,11 @@ import br.com.marcottc.newsvista.model.remote.TopArticleRemote
 import br.com.marcottc.newsvista.model.mock.MockGenerator
 import br.com.marcottc.newsvista.ui.theme.NewsVistaTheme
 import br.com.marcottc.newsvista.view.compose.DottedDivisor
-import br.com.marcottc.newsvista.view.compose.NewsArticleHeadlineItemSmallLayout
+import br.com.marcottc.newsvista.view.compose.NewsArticleHeadlineSmallPortraitLayout
 import br.com.marcottc.newsvista.view.compose.NewsArticleMediumCardSmallLayout
-import br.com.marcottc.newsvista.view.compose.NewsArticleSmallItemSmallLayout
+import br.com.marcottc.newsvista.view.compose.NewsArticleItemSmallPortraitLayout
 import br.com.marcottc.newsvista.view.compose.NewsVistaAppBar
+import br.com.marcottc.newsvista.view.state.NewsRetrievalState
 import br.com.marcottc.newsvista.viewmodel.NewsVistaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -90,13 +91,13 @@ class MainActivity : ComponentActivity() {
                 val divisorModifier = remember { Modifier.padding(horizontal = 8.dp) }
                 val article = articleList[index]
                 if (index == 0) {
-                    NewsArticleHeadlineItemSmallLayout(
+                    NewsArticleHeadlineSmallPortraitLayout(
                         modifier = newsItemModifier,
                         newsArticle = article
                     )
                 } else {
                     DottedDivisor(modifier = divisorModifier)
-                    NewsArticleSmallItemSmallLayout(
+                    NewsArticleItemSmallPortraitLayout(
                         modifier = newsItemModifier,
                         newsArticle = article
                     )
@@ -167,7 +168,8 @@ class MainActivity : ComponentActivity() {
             MainActivityScreen(newsRetrievalState = NewsRetrievalState(
                 state = NewsRetrievalState.State.SUCCESS,
                 newsRetrieval = newsRetrieval
-            ))
+            )
+            )
         }
     }
 }
