@@ -32,8 +32,6 @@ import br.com.marcottc.newsvista.model.mock.MockGenerator
 import br.com.marcottc.newsvista.model.remote.TopArticleRemote
 import br.com.marcottc.newsvista.ui.theme.LibreFranklin
 import br.com.marcottc.newsvista.ui.theme.NewsVistaTheme
-import br.com.marcottc.newsvista.ui.theme.lightGrey
-import br.com.marcottc.newsvista.ui.theme.nearBlack
 import coil.compose.AsyncImage
 
 @Composable
@@ -64,8 +62,7 @@ fun NewsArticleHeadlineSmallPortraitLayout(
             text = newsArticle.section,
             style = MaterialTheme
                 .typography
-                .labelSmall,
-            color = nearBlack
+                .labelSmall
         )
         Text(
             text = newsArticle.title,
@@ -73,10 +70,9 @@ fun NewsArticleHeadlineSmallPortraitLayout(
                 fontFamily = LibreFranklin,
                 fontWeight = FontWeight.Medium,
                 fontSize = 20.sp,
-                letterSpacing = 0.15.sp,
+                letterSpacing = (0.15).sp,
                 lineHeight = 27.sp
-            ),
-            color = nearBlack
+            )
         )
     }
 }
@@ -142,8 +138,7 @@ fun NewsArticleItemSmallPortraitLayout(
                 text = newsArticle.section,
                 style = MaterialTheme
                     .typography
-                    .labelSmall,
-                color = nearBlack
+                    .labelSmall
             )
             Text(
                 modifier = Modifier
@@ -152,8 +147,7 @@ fun NewsArticleItemSmallPortraitLayout(
                 text = newsArticle.title,
                 style = MaterialTheme
                     .typography
-                    .titleMedium,
-                color = nearBlack
+                    .titleMedium
             )
         }
         AsyncImage(
@@ -207,8 +201,7 @@ fun NewsArticleItemSmallLandscapeLayout(
                 text = newsArticle.section,
                 style = MaterialTheme
                     .typography
-                    .labelSmall,
-                color = nearBlack
+                    .labelSmall
             )
             Text(
                 modifier = Modifier
@@ -217,8 +210,7 @@ fun NewsArticleItemSmallLandscapeLayout(
                 text = newsArticle.title,
                 style = MaterialTheme
                     .typography
-                    .titleMedium,
-                color = nearBlack
+                    .titleMedium
             )
             Text(
                 text = newsArticle.abstract,
@@ -227,7 +219,9 @@ fun NewsArticleItemSmallLandscapeLayout(
                 style = MaterialTheme
                     .typography
                     .titleSmall,
-                color = lightGrey
+                color = MaterialTheme
+                    .colorScheme
+                    .secondary
             )
         }
         AsyncImage(
@@ -297,29 +291,28 @@ fun NewsArticleMediumCardSmallLayout(
                 text = newsArticle.section,
                 style = MaterialTheme
                     .typography
-                    .labelLarge,
-                color = nearBlack
+                    .labelLarge
             )
             Text(
                 text = newsArticle.title,
                 style = MaterialTheme
                     .typography
-                    .titleMedium,
-                color = nearBlack
+                    .titleMedium
             )
             Text(
                 text = newsArticle.abstract,
                 style = MaterialTheme
                     .typography
                     .bodyLarge,
-                color = lightGrey
+                color = MaterialTheme
+                    .colorScheme
+                    .secondary
             )
             Text(
                 text = newsArticle.byline,
                 style = MaterialTheme
                     .typography
-                    .labelSmall,
-                color = nearBlack
+                    .labelSmall
             )
         }
     }

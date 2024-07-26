@@ -61,7 +61,7 @@ val NewsVistaTypography = Typography(
                 fontWeight = FontWeight.Medium,
                 fontStyle = FontStyle.Normal,
                 lineHeight = 24.sp,
-                letterSpacing = 0.15.sp,
+                letterSpacing = (0.15).sp,
                 fontSize = 16.sp
         ),
         titleSmall = TextStyle(
@@ -77,7 +77,7 @@ val NewsVistaTypography = Typography(
                 fontWeight = FontWeight.Normal,
                 fontStyle = FontStyle.Normal,
                 lineHeight = 24.sp,
-                letterSpacing = 0.5.sp,
+                letterSpacing = (0.5).sp,
                 fontSize = 16.sp
         ),
         bodyMedium = TextStyle(
@@ -85,7 +85,7 @@ val NewsVistaTypography = Typography(
                 fontWeight = FontWeight.Normal,
                 fontStyle = FontStyle.Normal,
                 lineHeight = 20.sp,
-                letterSpacing = 0.25.sp,
+                letterSpacing = (0.25).sp,
                 fontSize = 14.sp
         ),
         bodySmall = TextStyle(
@@ -93,7 +93,7 @@ val NewsVistaTypography = Typography(
                 fontWeight = FontWeight.Normal,
                 fontStyle = FontStyle.Italic,
                 lineHeight = 16.sp,
-                letterSpacing = 0.4.sp,
+                letterSpacing = (0.4).sp,
                 fontSize = 12.sp
         ),
         labelLarge = TextStyle(
@@ -101,7 +101,7 @@ val NewsVistaTypography = Typography(
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Normal,
                 lineHeight = 20.sp,
-                letterSpacing = 0.1.sp,
+                letterSpacing = (0.1).sp,
                 fontSize = 14.sp
         ),
         labelSmall = TextStyle(
@@ -109,7 +109,7 @@ val NewsVistaTypography = Typography(
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Normal,
                 lineHeight = 16.sp,
-                letterSpacing = 0.5.sp,
+                letterSpacing = (0.5).sp,
                 fontSize = 10.sp
         )
 )
