@@ -2,7 +2,7 @@ package br.com.marcottc.newsvista.model.remote
 
 import com.google.gson.annotations.SerializedName
 
-data class NewsRetrievalRemote(
+data class TopStoriesNewsRetrievalRemote(
     val status: String,
     val copyright: String,
     val section: String,
@@ -11,5 +11,5 @@ data class NewsRetrievalRemote(
     @SerializedName("num_results")
     val numResults: Int,
     @SerializedName("results")
-    val resultList: List<TopArticleRemote>
+    val resultList: List<TopStoriesArticleRemote>
 )

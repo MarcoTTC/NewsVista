@@ -1,27 +1,27 @@
 package br.com.marcottc.newsvista.model.mock
 
 import br.com.marcottc.newsvista.model.remote.MultimediaRemote
-import br.com.marcottc.newsvista.model.remote.NewsRetrievalRemote
-import br.com.marcottc.newsvista.model.remote.TopArticleRemote
+import br.com.marcottc.newsvista.model.remote.TopStoriesNewsRetrievalRemote
+import br.com.marcottc.newsvista.model.remote.TopStoriesArticleRemote
 
 class MockGenerator {
 
     companion object {
 
-        fun generateNewsRetrievalData(): NewsRetrievalRemote {
-            return NewsRetrievalRemote(
+        fun generateTopStoriesNewsRetrievalData(): TopStoriesNewsRetrievalRemote {
+            return TopStoriesNewsRetrievalRemote(
                 status = "OK",
                 copyright = "Copyright (c) 2024 The New York Times Company. All Rights Reserved.",
                 section = "home",
                 lastUpdated = "2024-07-16T14:57:08-04:00",
                 numResults = 3,
-                resultList = generateTopArticleDataList()
+                resultList = generateTopStoriesArticleDataList()
             )
         }
 
-        fun generateTopArticleDataList(): List<TopArticleRemote> {
+        fun generateTopStoriesArticleDataList(): List<TopStoriesArticleRemote> {
             return listOf(
-                TopArticleRemote(
+                TopStoriesArticleRemote(
                     section = "world",
                     subsection = "europe",
                     title = "At Ukraine’s Largest Children’s Hospital, a Horrific Scene of Destruction",
@@ -88,7 +88,7 @@ class MockGenerator {
                     ),
                     shortUrl = ""
                 ),
-                TopArticleRemote(
+                TopStoriesArticleRemote(
                     section = "world",
                     subsection = "europe",
                     title = "The Surgeon",
@@ -149,7 +149,7 @@ class MockGenerator {
                     ),
                     shortUrl = ""
                 ),
-                TopArticleRemote(
+                TopStoriesArticleRemote(
                     section = "world",
                     subsection = "europe",
                     title = "Russian Court Orders Arrest of Yulia Navalnaya, Navalny’s Widow",
@@ -214,7 +214,7 @@ class MockGenerator {
             )
         }
 
-        fun generateTopArticleData() = TopArticleRemote(
+        fun generateTopStoriesSingleArticleData() = TopStoriesArticleRemote(
             section = "world",
             subsection = "europe",
             title = "At Ukraine’s Largest Children’s Hospital, a Horrific Scene of Destruction",

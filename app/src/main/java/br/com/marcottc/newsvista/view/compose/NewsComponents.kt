@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.marcottc.newsvista.R
 import br.com.marcottc.newsvista.model.mock.MockGenerator
-import br.com.marcottc.newsvista.model.remote.TopArticleRemote
+import br.com.marcottc.newsvista.model.remote.TopStoriesArticleRemote
 import br.com.marcottc.newsvista.ui.theme.LibreFranklin
 import br.com.marcottc.newsvista.ui.theme.NewsVistaTheme
 import coil.compose.AsyncImage
@@ -37,7 +37,7 @@ import coil.compose.AsyncImage
 @Composable
 fun NewsArticleHeadlineSmallPortraitLayout(
     modifier: Modifier = Modifier,
-    newsArticle: TopArticleRemote
+    newsArticle: TopStoriesArticleRemote
 ) {
     Column(
         modifier = modifier,
@@ -80,7 +80,7 @@ fun NewsArticleHeadlineSmallPortraitLayout(
 @Preview(showBackground = true)
 @Composable
 fun NewsArticleHeadlineSmallPortraitLayoutPreview() {
-    val mockArticle = MockGenerator.generateTopArticleData()
+    val mockArticle = MockGenerator.generateTopStoriesSingleArticleData()
     NewsVistaTheme {
         NewsArticleHeadlineSmallPortraitLayout(
             modifier = Modifier.padding(all = 8.dp),
@@ -119,7 +119,7 @@ fun DottedDivisorPreview() {
 @Composable
 fun NewsArticleItemSmallPortraitLayout(
     modifier: Modifier = Modifier,
-    newsArticle: TopArticleRemote
+    newsArticle: TopStoriesArticleRemote
 ) {
     Row(
         modifier = modifier
@@ -170,7 +170,7 @@ fun NewsArticleItemSmallPortraitLayout(
 @Preview(showBackground = true)
 @Composable
 fun NewsArticleItemSmallPortraitLayoutPreview() {
-    val mockArticle = MockGenerator.generateTopArticleData()
+    val mockArticle = MockGenerator.generateTopStoriesSingleArticleData()
     NewsVistaTheme {
         NewsArticleItemSmallPortraitLayout(
             modifier = Modifier.padding(all = 8.dp),
@@ -182,7 +182,7 @@ fun NewsArticleItemSmallPortraitLayoutPreview() {
 @Composable
 fun NewsArticleItemSmallLandscapeLayout(
     modifier: Modifier = Modifier,
-    newsArticle: TopArticleRemote
+    newsArticle: TopStoriesArticleRemote
 ) {
     Row(
         modifier = modifier
@@ -244,7 +244,7 @@ fun NewsArticleItemSmallLandscapeLayout(
 @Preview(showBackground = true)
 @Composable
 fun NewsArticleItemSmallLandscapeLayoutPreview() {
-    val mockArticle = MockGenerator.generateTopArticleData()
+    val mockArticle = MockGenerator.generateTopStoriesSingleArticleData()
     NewsVistaTheme {
         NewsArticleItemSmallLandscapeLayout(
             modifier = Modifier.padding(all = 8.dp),
@@ -258,7 +258,7 @@ fun NewsArticleItemSmallLandscapeLayoutPreview() {
 @Composable
 fun NewsArticleMediumCardSmallLayout(
     modifier: Modifier = Modifier,
-    newsArticle: TopArticleRemote
+    newsArticle: TopStoriesArticleRemote
 ) {
     Card(
         modifier = modifier
@@ -321,7 +321,7 @@ fun NewsArticleMediumCardSmallLayout(
 @Preview(showBackground = true)
 @Composable
 fun NewsArticleMediumCardSmallLayoutPreview() {
-    val mockArticle = MockGenerator.generateTopArticleData()
+    val mockArticle = MockGenerator.generateTopStoriesSingleArticleData()
     NewsVistaTheme {
         NewsArticleMediumCardSmallLayout(newsArticle = mockArticle)
     }

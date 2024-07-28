@@ -23,13 +23,13 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import br.com.marcottc.newsvista.model.remote.TopArticleRemote
 import br.com.marcottc.newsvista.model.mock.MockGenerator
+import br.com.marcottc.newsvista.model.remote.TopStoriesArticleRemote
 import br.com.marcottc.newsvista.ui.theme.NewsVistaTheme
 import br.com.marcottc.newsvista.view.compose.DottedDivisor
 import br.com.marcottc.newsvista.view.compose.NewsArticleHeadlineSmallPortraitLayout
-import br.com.marcottc.newsvista.view.compose.NewsArticleMediumCardSmallLayout
 import br.com.marcottc.newsvista.view.compose.NewsArticleItemSmallPortraitLayout
+import br.com.marcottc.newsvista.view.compose.NewsArticleMediumCardSmallLayout
 import br.com.marcottc.newsvista.view.compose.NewsVistaAppBar
 import br.com.marcottc.newsvista.view.state.NewsRetrievalState
 import br.com.marcottc.newsvista.viewmodel.NewsVistaViewModel
@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun NewsLandscapeLayout(
         modifier: Modifier = Modifier,
-        articleList: List<TopArticleRemote>
+        articleList: List<TopStoriesArticleRemote>
     ) {
         LazyVerticalGrid(
             modifier = modifier,
@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun NewsPhonePortraitLayout(
         modifier: Modifier = Modifier,
-        articleList: List<TopArticleRemote>
+        articleList: List<TopStoriesArticleRemote>
     ) {
         LazyColumn(
             modifier = modifier,
@@ -128,28 +128,33 @@ class MainActivity : ComponentActivity() {
                         NewsRetrievalState.State.LOADING -> {
                             CircularProgressIndicator()
                         }
+
                         NewsRetrievalState.State.SUCCESS -> {
                             NewsPhonePortraitLayout(
                                 modifier = Modifier.padding(paddingValues),
                                 articleList = newsRetrievalState.getNewsRetrieval()!!.resultList
                             )
                         }
+
                         NewsRetrievalState.State.ERROR -> {
                             Text(text = newsRetrievalState.getErrorMessage()!!)
                         }
                     }
                 }
+
                 else -> {
                     when (newsRetrievalState.getState()) {
                         NewsRetrievalState.State.LOADING -> {
                             CircularProgressIndicator()
                         }
+
                         NewsRetrievalState.State.SUCCESS -> {
                             NewsLandscapeLayout(
                                 modifier = Modifier.padding(paddingValues),
                                 articleList = newsRetrievalState.getNewsRetrieval()!!.resultList
                             )
                         }
+
                         NewsRetrievalState.State.ERROR -> {
                             Text(text = newsRetrievalState.getErrorMessage()!!)
                         }
@@ -162,13 +167,14 @@ class MainActivity : ComponentActivity() {
     @PreviewScreenSizes
     @Composable
     fun ScreenPreview() {
-        val newsRetrieval = MockGenerator.generateNewsRetrievalData()
+        val newsRetrieval = MockGenerator.generateTopStoriesNewsRetrievalData()
 
         NewsVistaTheme {
-            MainActivityScreen(newsRetrievalState = NewsRetrievalState(
-                state = NewsRetrievalState.State.SUCCESS,
-                newsRetrieval = newsRetrieval
-            )
+            MainActivityScreen(
+                newsRetrievalState = NewsRetrievalState(
+                    state = NewsRetrievalState.State.SUCCESS,
+                    newsRetrieval = newsRetrieval
+                )
             )
         }
     }

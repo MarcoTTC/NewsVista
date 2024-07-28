@@ -1,6 +1,6 @@
 package br.com.marcottc.newsvista.network.service
 
-import br.com.marcottc.newsvista.model.remote.NewsRetrievalRemote
+import br.com.marcottc.newsvista.model.remote.TopStoriesNewsRetrievalRemote
 import br.com.marcottc.newsvista.util.nyTimesAppId
 import com.google.gson.Gson
 import okhttp3.HttpUrl
@@ -18,7 +18,7 @@ class NyTimesNewsRetriever {
         private const val NY_SECTION_HOME: String = "home.json"
         private const val NY_QUERY_PARAM_API_KEY: String = "api-key"
 
-        fun getTopStoriesSectionHomeList(): NewsRetrievalRemote? {
+        fun getTopStoriesSectionHomeList(): TopStoriesNewsRetrievalRemote? {
             val httpUrl = baseUrlBuilder()
                 .addPathSegment(NY_TOP_STORIES)
                 .addPathSegment(NY_SERVICE_VERSION)
@@ -29,7 +29,7 @@ class NyTimesNewsRetriever {
             val responseBody = genericHttpGetRequest(httpUrl) ?: return null
 
             val gson = Gson()
-            val newsRetrieval = gson.fromJson(responseBody, NewsRetrievalRemote::class.java)
+            val newsRetrieval = gson.fromJson(responseBody, TopStoriesNewsRetrievalRemote::class.java)
             return newsRetrieval
         }
 

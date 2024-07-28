@@ -1,10 +1,10 @@
 package br.com.marcottc.newsvista.view.state
 
-import br.com.marcottc.newsvista.model.remote.NewsRetrievalRemote
+import br.com.marcottc.newsvista.model.remote.TopStoriesNewsRetrievalRemote
 
 class NewsRetrievalState(
     private var state: State = State.LOADING,
-    private var newsRetrieval: NewsRetrievalRemote? = null,
+    private var newsRetrieval: TopStoriesNewsRetrievalRemote? = null,
     private var errorMessage: String? = null
 ) {
     enum class State {
@@ -15,7 +15,7 @@ class NewsRetrievalState(
         return state
     }
 
-    fun getNewsRetrieval(): NewsRetrievalRemote? {
+    fun getNewsRetrieval(): TopStoriesNewsRetrievalRemote? {
         return if (state == State.SUCCESS) {
             newsRetrieval
         } else {
@@ -35,7 +35,7 @@ class NewsRetrievalState(
         state = State.LOADING
     }
 
-    fun setStateSuccess(newsRetrieval: NewsRetrievalRemote) {
+    fun setStateSuccess(newsRetrieval: TopStoriesNewsRetrievalRemote) {
         state = State.SUCCESS
         this.newsRetrieval = newsRetrieval
     }

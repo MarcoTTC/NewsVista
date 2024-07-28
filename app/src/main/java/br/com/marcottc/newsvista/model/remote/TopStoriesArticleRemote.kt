@@ -2,7 +2,7 @@ package br.com.marcottc.newsvista.model.remote
 
 import com.google.gson.annotations.SerializedName
 
-data class TopArticleRemote(
+data class TopStoriesArticleRemote(
     val section: String,
     val subsection: String,
     val title: String,
