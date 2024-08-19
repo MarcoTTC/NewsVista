@@ -1,4 +1,4 @@
-package br.com.marcottc.newsvista.view.state
+package br.com.marcottc.newsvista.state
 
 import br.com.marcottc.newsvista.model.remote.TopStoriesNewsRetrievalRemote
 

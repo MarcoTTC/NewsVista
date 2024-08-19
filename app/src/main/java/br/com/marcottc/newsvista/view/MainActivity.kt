@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
+import br.com.marcottc.newsvista.intent.NewsRetrievalIntent
 import br.com.marcottc.newsvista.model.mock.MockGenerator
 import br.com.marcottc.newsvista.model.remote.TopStoriesArticleRemote
 import br.com.marcottc.newsvista.ui.theme.NewsVistaTheme
@@ -31,10 +31,8 @@ import br.com.marcottc.newsvista.view.compose.NewsArticleHeadlineSmallPortraitLa
 import br.com.marcottc.newsvista.view.compose.NewsArticleItemSmallPortraitLayout
 import br.com.marcottc.newsvista.view.compose.NewsArticleMediumCardSmallLayout
 import br.com.marcottc.newsvista.view.compose.NewsVistaAppBar
-import br.com.marcottc.newsvista.view.state.NewsRetrievalState
+import br.com.marcottc.newsvista.state.NewsRetrievalState
 import br.com.marcottc.newsvista.viewmodel.NewsVistaViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -43,10 +41,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            viewmodel.fetchTopArticles()
-        }
-
+        viewmodel.handleIntent(NewsRetrievalIntent.FETCH_ARTICLES)
         enableEdgeToEdge()
         setContent {
             val newsRetrievalState: NewsRetrievalState by viewmodel.currentNewsRetrievalState
@@ -116,9 +111,7 @@ class MainActivity : ComponentActivity() {
             modifier = modifier,
             topBar = {
                 NewsVistaAppBar(menuButtonOnClick = {
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        viewmodel.fetchTopArticles()
-                    }
+                    viewmodel.handleIntent(NewsRetrievalIntent.FETCH_ARTICLES)
                 })
             }
         ) { paddingValues ->

@@ -1,11 +1,16 @@
 package br.com.marcottc.newsvista.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import br.com.marcottc.newsvista.intent.NewsRetrievalIntent
 import br.com.marcottc.newsvista.network.service.NyTimesNewsRetriever
-import br.com.marcottc.newsvista.view.state.NewsRetrievalState
+import br.com.marcottc.newsvista.state.NewsRetrievalState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class NewsVistaViewModel: ViewModel() {
 
@@ -14,7 +19,24 @@ class NewsVistaViewModel: ViewModel() {
     )
     val currentNewsRetrievalState: StateFlow<NewsRetrievalState> = _currentNewsRetrievalState.asStateFlow()
 
-    suspend fun fetchTopArticles() {
+    init {
+        handleIntent(NewsRetrievalIntent.INIT)
+    }
+
+    fun handleIntent(intent: NewsRetrievalIntent) {
+        when (intent) {
+            NewsRetrievalIntent.INIT -> {
+                _currentNewsRetrievalState.value.setStateLoading()
+            }
+            NewsRetrievalIntent.FETCH_ARTICLES -> {
+                viewModelScope.launch {
+                    fetchTopArticles()
+                }
+            }
+        }
+    }
+
+    private suspend fun fetchTopArticles() = withContext(Dispatchers.IO) {
         _currentNewsRetrievalState.value.setStateLoading()
         try {
             val newsRetrieval = NyTimesNewsRetriever.getTopStoriesSectionHomeList()
