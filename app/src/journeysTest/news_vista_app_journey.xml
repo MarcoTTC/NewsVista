@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><!-- @formatter:off -->
+<journey name="NewsVista App Journey">
+    <description>A journey instruction to test the NewsVista App</description>
+    <actions>
+        <action>Open the app</action>
+        <action>Verify the app at least shows a top bar containing in this order: A hamburger icon aligned to the top left, the text "NewsVista" to the right of the icon, and a search icon aligned to the right of the screen</action>
+        <action>Verify the app to show at least some news headlines under the top bar, each headline could contain a picture and a text.</action>
+    </actions>
+</journey>
