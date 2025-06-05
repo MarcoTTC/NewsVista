@@ -56,6 +56,7 @@ dependencies {
     // Compose
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.lifecycle.runtime.compose)
     // Runtime
     implementation(libs.androidx.runtime)
     // UI

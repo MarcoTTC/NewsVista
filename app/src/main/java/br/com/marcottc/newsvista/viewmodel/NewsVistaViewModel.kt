@@ -24,12 +24,15 @@ class NewsVistaViewModel: ViewModel() {
     }
 
     fun handleIntent(intent: NewsRetrievalIntent) {
-        when (intent) {
-            NewsRetrievalIntent.INIT -> {
-                _currentNewsRetrievalState.value.setStateLoading()
-            }
-            NewsRetrievalIntent.FETCH_ARTICLES -> {
-                viewModelScope.launch {
+        viewModelScope.launch {
+            when (intent) {
+                NewsRetrievalIntent.INIT -> {
+                    _currentNewsRetrievalState.emit(
+                        NewsRetrievalState()
+                    )
+                }
+
+                NewsRetrievalIntent.FETCH_ARTICLES -> {
                     fetchTopArticles()
                 }
             }
@@ -37,16 +40,25 @@ class NewsVistaViewModel: ViewModel() {
     }
 
     private suspend fun fetchTopArticles() = withContext(Dispatchers.IO) {
-        _currentNewsRetrievalState.value.setStateLoading()
+        _currentNewsRetrievalState.emit(NewsRetrievalState())
         try {
             val newsRetrieval = NyTimesNewsRetriever.getTopStoriesSectionHomeList()
             if (newsRetrieval != null) {
-                _currentNewsRetrievalState.value.setStateSuccess(newsRetrieval)
+                _currentNewsRetrievalState.emit(NewsRetrievalState(
+                    state = NewsRetrievalState.State.SUCCESS,
+                    newsRetrieval = newsRetrieval
+                ))
             } else {
-                _currentNewsRetrievalState.value.setStateError("Failure when retrieving the news data")
+                _currentNewsRetrievalState.emit(NewsRetrievalState(
+                    state = NewsRetrievalState.State.ERROR,
+                    errorMessage = "Failure when retrieving the news data"
+                ))
             }
         } catch (e: Exception) {
-            _currentNewsRetrievalState.value.setStateError(e.message ?: "Failure when retrieving the news data")
+            _currentNewsRetrievalState.emit(NewsRetrievalState(
+                state = NewsRetrievalState.State.ERROR,
+                errorMessage = e.message ?: "Failure when retrieving the news data"
+            ))
         }
     }
 }

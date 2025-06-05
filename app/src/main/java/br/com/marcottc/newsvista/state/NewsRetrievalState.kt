@@ -30,18 +30,4 @@ class NewsRetrievalState(
             null
         }
     }
-
-    fun setStateLoading() {
-        state = State.LOADING
-    }
-
-    fun setStateSuccess(newsRetrieval: TopStoriesNewsRetrievalRemote) {
-        state = State.SUCCESS
-        this.newsRetrieval = newsRetrieval
-    }
-
-    fun setStateError(errorMessage: String) {
-        state = State.ERROR
-        this.errorMessage = errorMessage
-    }
 }

@@ -15,13 +15,14 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import br.com.marcottc.newsvista.intent.NewsRetrievalIntent
 import br.com.marcottc.newsvista.model.mock.MockGenerator
 import br.com.marcottc.newsvista.model.remote.TopStoriesArticleRemote
@@ -45,7 +46,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val newsRetrievalState: NewsRetrievalState by viewmodel.currentNewsRetrievalState
-                .collectAsState(initial = NewsRetrievalState())
+                .collectAsStateWithLifecycle(
+                    initialValue = NewsRetrievalState(),
+                    minActiveState = Lifecycle.State.RESUMED
+                )
 
             NewsVistaTheme {
                 MainActivityScreen(newsRetrievalState = newsRetrievalState)
