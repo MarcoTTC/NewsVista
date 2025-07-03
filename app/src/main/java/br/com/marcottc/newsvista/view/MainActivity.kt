@@ -158,7 +158,7 @@ class MainActivity : ComponentActivity() {
                         NewsRetrievalState.State.SUCCESS -> {
                             NewsPhonePortraitLayout360dp(
                                 modifier = Modifier.padding(paddingValues),
-                                tagsList = MockGenerator.generateNewsTagList(),
+                                tagsList = newsRetrievalState.getNewsTagList(),
                                 articleList = newsRetrievalState.getNewsRetrieval()!!.resultList
                             )
                         }
@@ -200,6 +200,7 @@ class MainActivity : ComponentActivity() {
             MainActivityScreen(
                 newsRetrievalState = NewsRetrievalState(
                     state = NewsRetrievalState.State.SUCCESS,
+                    newsTagList = MockGenerator.generateNewsTagList(),
                     newsRetrieval = newsRetrieval
                 )
             )

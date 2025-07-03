@@ -10,9 +10,17 @@ class MockGenerator {
 
         fun generateNewsTagList(): List<String> {
             return listOf(
-                "#TechDesign",
-                "#Reform",
-                "#HealthcareRevolution"
+                "#Business",
+                "#Us",
+                "#Climate",
+                "#Magazine",
+                "#Movies",
+                "#World",
+                "#Nyregion",
+                "#Arts",
+                "#Well",
+                "#Fashion",
+                "#Opinion"
             )
         }
 

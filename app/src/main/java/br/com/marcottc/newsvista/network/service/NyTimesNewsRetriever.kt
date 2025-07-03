@@ -15,6 +15,7 @@ class NyTimesNewsRetriever {
         private const val NY_SERVICE_PATH: String = "svc"
         private const val NY_TOP_STORIES: String = "topstories"
         private const val NY_SERVICE_VERSION: String = "v2"
+        private const val NY_SECTION_WORLD: String = "world.json"
         private const val NY_SECTION_HOME: String = "home.json"
         private const val NY_QUERY_PARAM_API_KEY: String = "api-key"
 

@@ -5,6 +5,7 @@ import br.com.marcottc.newsvista.model.remote.TopStoriesNewsRetrievalRemote
 class NewsRetrievalState(
     private var state: State = State.LOADING,
     private var newsRetrieval: TopStoriesNewsRetrievalRemote? = null,
+    private var newsTagList: List<String> = emptyList(),
     private var errorMessage: String? = null
 ) {
     enum class State {
@@ -23,6 +24,8 @@ class NewsRetrievalState(
         }
     }
 
+    fun getNewsTagList(): List<String> = newsTagList
+
     fun getErrorMessage(): String? {
         return if (state == State.ERROR) {
             errorMessage
@@ -30,4 +33,6 @@ class NewsRetrievalState(
             null
         }
     }
+
+
 }
