@@ -8,6 +8,14 @@ class MockGenerator {
 
     companion object {
 
+        fun generateNewsTagList(): List<String> {
+            return listOf(
+                "#TechDesign",
+                "#Reform",
+                "#HealthcareRevolution"
+            )
+        }
+
         fun generateTopStoriesNewsRetrievalData(): TopStoriesNewsRetrievalRemote {
             return TopStoriesNewsRetrievalRemote(
                 status = "OK",

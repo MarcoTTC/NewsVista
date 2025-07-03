@@ -7,8 +7,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.CircularProgressIndicator
@@ -27,12 +32,14 @@ import br.com.marcottc.newsvista.intent.NewsRetrievalIntent
 import br.com.marcottc.newsvista.model.mock.MockGenerator
 import br.com.marcottc.newsvista.model.remote.TopStoriesArticleRemote
 import br.com.marcottc.newsvista.ui.theme.NewsVistaTheme
-import br.com.marcottc.newsvista.view.compose.DottedDivisor
 import br.com.marcottc.newsvista.view.compose.NewsArticleHeadlineSmallPortraitLayout
 import br.com.marcottc.newsvista.view.compose.NewsArticleItemSmallPortraitLayout
 import br.com.marcottc.newsvista.view.compose.NewsArticleMediumCardSmallLayout
 import br.com.marcottc.newsvista.view.compose.NewsVistaAppBar
 import br.com.marcottc.newsvista.state.NewsRetrievalState
+import br.com.marcottc.newsvista.view.compose.HorizontalDottedDivisor
+import br.com.marcottc.newsvista.view.compose.NewsTagSmallPortraitLayout
+import br.com.marcottc.newsvista.view.compose.VerticalDottedDivisor
 import br.com.marcottc.newsvista.viewmodel.NewsVistaViewModel
 
 class MainActivity : ComponentActivity() {
@@ -77,29 +84,51 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun NewsPhonePortraitLayout(
+    fun NewsPhonePortraitLayout360dp(
         modifier: Modifier = Modifier,
+        tagsList: List<String>,
         articleList: List<TopStoriesArticleRemote>
     ) {
-        LazyColumn(
-            modifier = modifier,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(articleList.size) { index ->
-                val newsItemModifier = remember { Modifier.padding(all = 8.dp) }
-                val divisorModifier = remember { Modifier.padding(horizontal = 8.dp) }
-                val article = articleList[index]
-                if (index == 0) {
-                    NewsArticleHeadlineSmallPortraitLayout(
-                        modifier = newsItemModifier,
-                        newsArticle = article
-                    )
-                } else {
-                    DottedDivisor(modifier = divisorModifier)
-                    NewsArticleItemSmallPortraitLayout(
-                        modifier = newsItemModifier,
-                        newsArticle = article
-                    )
+        Column(modifier = modifier) {
+            LazyRow(
+                modifier = Modifier.padding(all = 8.dp)
+            ) {
+                items(tagsList.size) { index ->
+                    val verticalDivisorModifier = remember {
+                        Modifier
+                            .height(21.dp)
+                            .padding(horizontal = 8.dp)
+                    }
+                    val tag = tagsList[index]
+                    Row(
+                        modifier = Modifier.wrapContentHeight()
+                    ) {
+                        NewsTagSmallPortraitLayout(
+                            newsTag = tag
+                        )
+                        VerticalDottedDivisor(modifier = verticalDivisorModifier)
+                    }
+                }
+            }
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(articleList.size) { index ->
+                    val newsItemModifier = remember { Modifier.padding(all = 8.dp) }
+                    val divisorHorizontalModifier = remember { Modifier.padding(horizontal = 8.dp) }
+                    val article = articleList[index]
+                    if (index == 0) {
+                        NewsArticleHeadlineSmallPortraitLayout(
+                            modifier = newsItemModifier,
+                            newsArticle = article
+                        )
+                    } else {
+                        HorizontalDottedDivisor(modifier = divisorHorizontalModifier)
+                        NewsArticleItemSmallPortraitLayout(
+                            modifier = newsItemModifier,
+                            newsArticle = article
+                        )
+                    }
                 }
             }
         }
@@ -127,8 +156,9 @@ class MainActivity : ComponentActivity() {
                         }
 
                         NewsRetrievalState.State.SUCCESS -> {
-                            NewsPhonePortraitLayout(
+                            NewsPhonePortraitLayout360dp(
                                 modifier = Modifier.padding(paddingValues),
+                                tagsList = MockGenerator.generateNewsTagList(),
                                 articleList = newsRetrievalState.getNewsRetrieval()!!.resultList
                             )
                         }

@@ -91,7 +91,7 @@ fun NewsArticleHeadlineSmallPortraitLayoutPreview() {
 }
 
 @Composable
-fun DottedDivisor(
+fun HorizontalDottedDivisor(
     modifier: Modifier = Modifier
 ) {
     val pathEffect = remember { PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f) }
@@ -111,9 +111,9 @@ fun DottedDivisor(
 
 @Preview(showBackground = true)
 @Composable
-fun DottedDivisorPreview() {
+fun DottedDivisorHorizontalPreview() {
     NewsVistaTheme {
-        DottedDivisor(modifier = Modifier.padding(all = 8.dp))
+        HorizontalDottedDivisor(modifier = Modifier.padding(all = 8.dp))
     }
 }
 
