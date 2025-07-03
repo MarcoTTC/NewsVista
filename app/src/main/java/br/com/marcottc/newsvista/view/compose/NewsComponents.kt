@@ -59,7 +59,8 @@ fun NewsArticleHeadlineSmallPortraitLayout(
             fallback = painterResource(R.drawable.medium_placeholder_image)
         )
         Text(
-            text = newsArticle.section,
+            text =
+                newsArticle.section.uppercase(),
             style = MaterialTheme
                 .typography
                 .labelSmall
@@ -135,7 +136,7 @@ fun NewsArticleItemSmallPortraitLayout(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
-                text = newsArticle.section,
+                text = newsArticle.section.uppercase(),
                 style = MaterialTheme
                     .typography
                     .labelSmall
@@ -198,7 +199,7 @@ fun NewsArticleItemSmallLandscapeLayout(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
-                text = newsArticle.section,
+                text = newsArticle.section.uppercase(),
                 style = MaterialTheme
                     .typography
                     .labelSmall
@@ -288,7 +289,7 @@ fun NewsArticleMediumCardSmallLayout(
                 fallback = painterResource(R.drawable.medium_placeholder_image)
             )
             Text(
-                text = newsArticle.section,
+                text = newsArticle.section.uppercase(),
                 style = MaterialTheme
                     .typography
                     .labelLarge
