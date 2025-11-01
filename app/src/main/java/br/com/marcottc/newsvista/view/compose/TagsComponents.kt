@@ -51,7 +51,7 @@ fun VerticalDottedDivisor(
     Canvas(
         modifier = modifier
             .defaultMinSize(minHeight = 21.dp)
-            .width(1.dp)
+            .width(2.dp)
     ) {
         drawLine(
             color = Color.Gray,

@@ -98,7 +98,7 @@ fun HorizontalDottedDivisor(
     Canvas(
         modifier = modifier
             .fillMaxWidth()
-            .height(1.dp)
+            .height(2.dp)
     ) {
         drawLine(
             color = Color.Gray,
@@ -325,5 +325,59 @@ fun NewsArticleMediumCardSmallLayoutPreview() {
     val mockArticle = MockGenerator.generateTopStoriesSingleArticleData()
     NewsVistaTheme {
         NewsArticleMediumCardSmallLayout(newsArticle = mockArticle)
+    }
+}
+
+// TODO - This composable needs to be adjusted to occupy only half of the screen, not all the screen
+@Composable
+fun NewsArticleHeadlineTabletPortraitLayout(
+    modifier: Modifier = Modifier,
+    newsArticle: TopStoriesArticleRemote
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        AsyncImage(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(4f / 3f),
+            model =
+            if (newsArticle.multimediaList.isNullOrEmpty()) {
+                null
+            } else {
+                newsArticle.multimediaList[1].url
+            },
+            contentDescription = null,
+            placeholder = painterResource(R.drawable.medium_placeholder_image),
+            error = painterResource(R.drawable.medium_placeholder_image),
+            fallback = painterResource(R.drawable.medium_placeholder_image)
+        )
+        Text(
+            text = newsArticle.section.uppercase(),
+            style = MaterialTheme
+                .typography
+                .labelSmall
+        )
+        Text(
+            text = newsArticle.title,
+            style = MaterialTheme
+                .typography
+                .headlineSmall,
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun NewsArticleHeadlineTabletPortraitLayoutPreview() {
+    val mockArticle = MockGenerator.generateTopStoriesSingleArticleData()
+    NewsVistaTheme {
+        NewsArticleHeadlineTabletPortraitLayout(
+            modifier = Modifier.padding(all = 8.dp),
+            newsArticle = mockArticle
+        )
     }
 }
