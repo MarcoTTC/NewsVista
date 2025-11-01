@@ -2,12 +2,14 @@ package br.com.marcottc.newsvista.view.compose
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -96,9 +98,7 @@ fun HorizontalDottedDivisor(
 ) {
     val pathEffect = remember { PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f) }
     Canvas(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(2.dp)
+        modifier = modifier.height(2.dp)
     ) {
         drawLine(
             color = Color.Gray,
@@ -113,7 +113,9 @@ fun HorizontalDottedDivisor(
 @Composable
 fun DottedDivisorHorizontalPreview() {
     NewsVistaTheme {
-        HorizontalDottedDivisor(modifier = Modifier.padding(all = 8.dp))
+        Box(modifier = Modifier.width(300.dp).padding(all = 8.dp)) {
+            HorizontalDottedDivisor(modifier = Modifier.fillMaxWidth())
+        }
     }
 }
 

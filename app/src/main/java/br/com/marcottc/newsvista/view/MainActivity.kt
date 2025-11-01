@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -126,7 +127,11 @@ class MainActivity : ComponentActivity() {
             ) {
                 items(articleList.size) { index ->
                     val newsItemModifier = remember { Modifier.padding(all = 8.dp) }
-                    val divisorHorizontalModifier = remember { Modifier.padding(horizontal = 8.dp) }
+                    val divisorHorizontalModifier = remember {
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp)
+                    }
                     val article = articleList[index]
                     if (index == 0) {
                         NewsArticleHeadlineSmallPortraitLayout(
@@ -205,10 +210,12 @@ class MainActivity : ComponentActivity() {
                             }
                             if (index < articleListLeftColumn.size - 1) {
                                 HorizontalDottedDivisor(
-                                    modifier = Modifier.padding(
-                                        horizontal = 8.dp,
-                                        vertical = 8.dp
-                                    )
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(
+                                            horizontal = 8.dp,
+                                            vertical = 8.dp
+                                        )
                                 )
                             }
                         }
@@ -233,10 +240,12 @@ class MainActivity : ComponentActivity() {
                             )
                             if (index < articleListRightColumn.size - 1) {
                                 HorizontalDottedDivisor(
-                                    modifier = Modifier.padding(
-                                        horizontal = 8.dp,
-                                        vertical = 8.dp
-                                    )
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(
+                                            horizontal = 8.dp,
+                                            vertical = 8.dp
+                                        )
                                 )
                             }
                         }

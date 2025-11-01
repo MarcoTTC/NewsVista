@@ -1,13 +1,11 @@
 package br.com.marcottc.newsvista.view.compose
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -17,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.com.marcottc.newsvista.model.mock.MockGenerator
 import br.com.marcottc.newsvista.ui.theme.NewsVistaTheme
 
 @Composable
@@ -34,7 +31,6 @@ fun NewsTagSmallPortraitLayout(
 @Preview(showBackground = true)
 @Composable
 fun NewsTagSmallPortraitLayoutPreview() {
-    val mockArticle = MockGenerator.generateTopStoriesSingleArticleData()
     NewsVistaTheme {
         NewsTagSmallPortraitLayout(
             modifier = Modifier.padding(all = 8.dp),
@@ -49,9 +45,7 @@ fun VerticalDottedDivisor(
 ) {
     val pathEffect = remember { PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f) }
     Canvas(
-        modifier = modifier
-            .defaultMinSize(minHeight = 21.dp)
-            .width(2.dp)
+        modifier = modifier.width(2.dp)
     ) {
         drawLine(
             color = Color.Gray,
@@ -66,6 +60,8 @@ fun VerticalDottedDivisor(
 @Composable
 fun VerticalDottedDivisorPreview() {
     NewsVistaTheme {
-        VerticalDottedDivisor(modifier = Modifier.padding(all = 8.dp))
+        Box(modifier = Modifier.height(100.dp).padding(all = 8.dp)) {
+            VerticalDottedDivisor(modifier = Modifier.fillMaxHeight())
+        }
     }
 }
