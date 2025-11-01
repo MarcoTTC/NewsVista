@@ -332,13 +332,34 @@ class MainActivity : ComponentActivity() {
     }
 
     @Preview(
-        name = "Tablet Portrait 600dp",
+        name = "Extra Small Phone 360dp",
+        widthDp = 360,
+        heightDp = 540,
+        showBackground = true
+    )
+    @Composable
+    fun ExtraSmallPhonePreview() {
+        val newsRetrieval = MockGenerator.generateTopStoriesNewsRetrievalData()
+
+        NewsVistaTheme {
+            MainActivityScreen(
+                newsRetrievalState = NewsRetrievalState(
+                    state = NewsRetrievalState.State.SUCCESS,
+                    newsTagList = MockGenerator.generateNewsTagList(),
+                    newsRetrieval = newsRetrieval
+                )
+            )
+        }
+    }
+
+    @Preview(
+        name = "Small Tablet Portrait 600dp",
         widthDp = 600,
         heightDp = 960,
         showBackground = true
     )
     @Composable
-    fun TabletPortraitPreview() {
+    fun SmallTabletPortraitPreview() {
         val newsRetrieval = MockGenerator.generateTopStoriesNewsRetrievalData()
 
         NewsVistaTheme {
