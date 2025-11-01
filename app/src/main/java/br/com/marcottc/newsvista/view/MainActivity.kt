@@ -49,7 +49,9 @@ import br.com.marcottc.newsvista.viewmodel.NewsVistaViewModel
 enum class WindowSizeClass {
     EXTRA_SMALL,       // >= 360 dp && < 600 dp (phone)
     SMALL_PORTRAIT,    // >= 600 dp && < 905 dp (tablet portrait)
-    SMALL_LANDSCAPE    // >= 905 dp (tablet landscape and bigger)
+    SMALL_LANDSCAPE,   // >= 905 dp (tablet landscape)
+    MEDIUM,            // >= 1280 dp (smaller laptop/desktop screen)
+    LARGE              // >= 1440 dp (large laptop/desktop screen)
 }
 
 class MainActivity : ComponentActivity() {
@@ -245,7 +247,9 @@ class MainActivity : ComponentActivity() {
         val windowSize = when {
             screenWidthDp < 600 -> WindowSizeClass.EXTRA_SMALL
             screenWidthDp < 905 -> WindowSizeClass.SMALL_PORTRAIT
-            else -> WindowSizeClass.SMALL_LANDSCAPE
+            screenWidthDp < 1280 -> WindowSizeClass.SMALL_LANDSCAPE
+            screenWidthDp < 1440 -> WindowSizeClass.MEDIUM
+            else -> WindowSizeClass.LARGE
         }
 
         Scaffold(
@@ -295,7 +299,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
-                        WindowSizeClass.SMALL_LANDSCAPE -> {
+                        else -> {
                             NewsLandscapeLayout(
                                 modifier = Modifier.padding(paddingValues),
                                 articleList = newsRetrievalState.getNewsRetrieval()!!.resultList
