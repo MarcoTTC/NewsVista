@@ -13,9 +13,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -49,9 +47,9 @@ import br.com.marcottc.newsvista.view.compose.VerticalDottedDivisor
 import br.com.marcottc.newsvista.viewmodel.NewsVistaViewModel
 
 enum class WindowSizeClass {
-    COMPACT,    // < 600dp (phone)
-    MEDIUM,     // 600-840dp (tablet portrait)
-    EXPANDED    // > 840dp (tablet landscape/desktop)
+    EXTRA_SMALL,       // >= 360 dp && < 600 dp (phone)
+    SMALL_PORTRAIT,    // >= 600 dp && < 905 dp (tablet portrait)
+    SMALL_LANDSCAPE    // >= 905 dp (tablet landscape and bigger)
 }
 
 class MainActivity : ComponentActivity() {
@@ -126,24 +124,28 @@ class MainActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(articleList.size) { index ->
-                    val newsItemModifier = remember { Modifier.padding(all = 8.dp) }
-                    val divisorHorizontalModifier = remember {
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp)
-                    }
-                    val article = articleList[index]
-                    if (index == 0) {
-                        NewsArticleHeadlineSmallPortraitLayout(
-                            modifier = newsItemModifier,
-                            newsArticle = article
-                        )
-                    } else {
-                        HorizontalDottedDivisor(modifier = divisorHorizontalModifier)
-                        NewsArticleItemSmallPortraitLayout(
-                            modifier = newsItemModifier,
-                            newsArticle = article
-                        )
+                    Column {
+                        val newsItemModifier = remember { Modifier.padding(all = 8.dp) }
+                        val divisorHorizontalModifier = remember {
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp)
+                        }
+                        val article = articleList[index]
+                        if (index == 0) {
+                            NewsArticleHeadlineSmallPortraitLayout(
+                                modifier = newsItemModifier,
+                                newsArticle = article
+                            )
+                        } else {
+                            NewsArticleItemSmallPortraitLayout(
+                                modifier = newsItemModifier,
+                                newsArticle = article
+                            )
+                        }
+                        if (index < articleList.size - 1) {
+                            HorizontalDottedDivisor(modifier = divisorHorizontalModifier)
+                        }
                     }
                 }
             }
@@ -153,35 +155,12 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun NewsTabletPortraitLayout600dp(
         modifier: Modifier = Modifier,
-        tagsList: List<String>,
         articleList: List<TopStoriesArticleRemote>
     ) {
-        Column(modifier = modifier) {
-            LazyRow(
-                modifier = Modifier.padding(all = 16.dp)
-            ) {
-                items(tagsList.size) { index ->
-                    val verticalDivisorModifier = remember {
-                        Modifier
-                            .height(21.dp)
-                            .padding(horizontal = 8.dp)
-                    }
-                    val tag = tagsList[index]
-                    Row(
-                        modifier = Modifier.wrapContentHeight()
-                    ) {
-                        NewsTagSmallPortraitLayout(
-                            newsTag = tag
-                        )
-                        VerticalDottedDivisor(modifier = verticalDivisorModifier)
-                    }
-                }
-            }
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .weight(1f)
-            ) {
+        Row(
+            modifier = modifier
+                .padding(horizontal = 16.dp)
+        ) {
                 var articleListLeftColumn: List<TopStoriesArticleRemote> = emptyList()
                 var articleListRightColumn: List<TopStoriesArticleRemote>
                 if (articleList.size > 3) {
@@ -252,7 +231,6 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-        }
     }
 
     @Composable
@@ -265,17 +243,20 @@ class MainActivity : ComponentActivity() {
         val orientation = configuration.orientation
 
         val windowSize = when {
-            screenWidthDp < 600 -> WindowSizeClass.COMPACT
-            screenWidthDp < 840 -> WindowSizeClass.MEDIUM
-            else -> WindowSizeClass.EXPANDED
+            screenWidthDp < 600 -> WindowSizeClass.EXTRA_SMALL
+            screenWidthDp < 905 -> WindowSizeClass.SMALL_PORTRAIT
+            else -> WindowSizeClass.SMALL_LANDSCAPE
         }
 
         Scaffold(
             modifier = modifier,
             topBar = {
-                NewsVistaAppBar(menuButtonOnClick = {
-                    viewmodel.handleIntent(NewsRetrievalIntent.FETCH_ARTICLES)
-                })
+                NewsVistaAppBar(
+                    tagsList = if (windowSize == WindowSizeClass.EXTRA_SMALL) emptyList() else newsRetrievalState.getNewsTagList(),
+                    menuButtonOnClick = {
+                        viewmodel.handleIntent(NewsRetrievalIntent.FETCH_ARTICLES)
+                    }
+                )
             }
         ) { paddingValues ->
             when (newsRetrievalState.getState()) {
@@ -285,7 +266,7 @@ class MainActivity : ComponentActivity() {
 
                 NewsRetrievalState.State.SUCCESS -> {
                     when (windowSize) {
-                        WindowSizeClass.COMPACT -> {
+                        WindowSizeClass.EXTRA_SMALL -> {
                             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
                                 NewsPhonePortraitLayout360dp(
                                     modifier = Modifier.padding(paddingValues),
@@ -300,11 +281,10 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
-                        WindowSizeClass.MEDIUM -> {
+                        WindowSizeClass.SMALL_PORTRAIT -> {
                             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
                                 NewsTabletPortraitLayout600dp(
                                     modifier = Modifier.padding(paddingValues),
-                                    tagsList = newsRetrievalState.getNewsTagList(),
                                     articleList = newsRetrievalState.getNewsRetrieval()!!.resultList
                                 )
                             } else {
@@ -315,7 +295,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
-                        WindowSizeClass.EXPANDED -> {
+                        WindowSizeClass.SMALL_LANDSCAPE -> {
                             NewsLandscapeLayout(
                                 modifier = Modifier.padding(paddingValues),
                                 articleList = newsRetrievalState.getNewsRetrieval()!!.resultList

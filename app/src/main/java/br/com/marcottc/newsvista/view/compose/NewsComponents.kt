@@ -96,7 +96,7 @@ fun NewsArticleHeadlineSmallPortraitLayoutPreview() {
 fun HorizontalDottedDivisor(
     modifier: Modifier = Modifier
 ) {
-    val pathEffect = remember { PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f) }
+    val pathEffect = remember { PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f) }
     Canvas(
         modifier = modifier.height(2.dp)
     ) {
